@@ -55,7 +55,9 @@ class App extends React.Component {
     // check react
     if (prev.filepath !== this.state.filepath) {
       const { default: component } = await import(this.state.filepath);
-      this.setState({ component });
+      if (component) {
+        this.setState({ component });
+      }
     }
   }
 
