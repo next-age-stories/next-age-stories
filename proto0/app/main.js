@@ -1,7 +1,5 @@
-// import React from "react";
-// import ReactDOM from "react-dom";
-import React from "https://dev.jspm.io/react@16";
-import ReactDOM from "https://dev.jspm.io/react-dom@16";
+import React from "react";
+import ReactDOM from "react-dom";
 
 class PropsEditor extends React.Component {
   render() {
@@ -48,8 +46,6 @@ class App extends React.Component {
   }
   render() {
     if (this.state.component) {
-      // const props = { name: "John" };
-      // return React.createElement(this.state.component, props);
       return (
         <div>
           <PropsEditor

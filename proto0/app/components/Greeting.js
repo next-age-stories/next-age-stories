@@ -1,2 +1,2 @@
-import React from "https://dev.jspm.io/react@16";
+import React from "react";
 export default (props: { name: string }) => <span>Greeting, {props.name}</span>;

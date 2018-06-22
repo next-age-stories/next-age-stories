@@ -8,10 +8,13 @@ const compilerOptions = {
   sourcemap: false,
   jsx: "react"
 };
+
 import { transform } from "@babel/core/lib/transform";
 import flow from "@babel/preset-flow";
 import react from "@babel/preset-react";
 import pluginSyntaxDynamicImport from "@babel/plugin-syntax-dynamic-import";
+
+import rewriteModulePath from "./rewriteModulePath";
 
 self.addEventListener("install", function(event) {
   event.waitUntil(self.skipWaiting());
@@ -26,7 +29,15 @@ const fetchBabeledJS = async url => {
   const source = await res.text();
   const output = transform(source, {
     presets: [flow, react],
-    plugins: [pluginSyntaxDynamicImport]
+    plugins: [
+      pluginSyntaxDynamicImport,
+      [
+        rewriteModulePath,
+        {
+          filename: url
+        }
+      ]
+    ]
   }).code;
   console.log("compiled", output);
   return new Response(output, {
@@ -38,10 +49,23 @@ const fetchBabeledJS = async url => {
 const fetchTypeScriptJS = async url => {
   const res = await fetch(url);
   const source = await res.text();
-  const output = ts.transpileModule(source, { compilerOptions });
+
+  const tsCompiled = ts.transpileModule(source, { compilerOptions });
+
+  // rewrite module path
+  const output = transform(tsCompiled.outputText, {
+    plugins: [
+      [
+        rewriteModulePath,
+        {
+          filename: url
+        }
+      ]
+    ]
+  }).code;
 
   console.log("compiled", output);
-  return new Response(output.outputText, {
+  return new Response(output, {
     mode: "no-cors",
     headers: { "Content-Type": "text/javascript" }
   });
