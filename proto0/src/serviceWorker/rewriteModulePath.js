@@ -1,6 +1,6 @@
 const url = require("url");
 const path = require("path");
-const pkg = require("../package.json");
+const pkg = require("../../package.json");
 
 export default function rewriteModulePath({ types }) {
   return {

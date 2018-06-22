@@ -4,11 +4,11 @@ import { transformWithTypeScript } from "./transformWithTypescript";
 
 console.log("sw installed");
 
-self.addEventListener("install", function(event) {
+self.addEventListener("install", event => {
   event.waitUntil(self.skipWaiting());
 });
 
-self.addEventListener("activate", function(event) {
+self.addEventListener("activate", event => {
   event.waitUntil(self.clients.claim());
 });
 
