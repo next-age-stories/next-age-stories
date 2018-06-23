@@ -9,6 +9,7 @@
   "devDependencies": {
     "@types/react": "^16.4.1",
     "@types/react-dom": "^16.0.6",
+    "babel-loader": "^8.0.0-beta",
     "copy-webpack-plugin": "^4.5.1",
     "glob": "^7.1.2",
     "http-server": "^0.11.1",

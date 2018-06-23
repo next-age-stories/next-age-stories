@@ -15,6 +15,15 @@ module.exports = {
     path: __dirname + "/runner",
     publicPath: "/"
   },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: "babel-loader",
+        include: [__dirname + "/ui", __dirname + "/sw"]
+      }
+    ]
+  },
   resolve: {
     alias: {
       // avoid build error in @babel/core
